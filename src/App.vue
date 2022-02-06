@@ -10,6 +10,7 @@
         <input type="date" v-model="fromDate" />
       </div>
       <div class="col">
+        <!-- To-Do: Disable dates later than today -->
         <input type="date" v-model="toDate" />
       </div>
       <div class="col">
@@ -49,8 +50,8 @@ export default {
   },
   data() {
     return {
-      fromDate: "2022-01-01", // To-Do: shouldn't be hardcoded
-      toDate: "2022-01-31",
+      fromDate: this.getTenDaysAgo(),
+      toDate: this.getToday(),
       data: null,
       chartOptions: {
         responsive: true,
@@ -86,6 +87,14 @@ export default {
           this.errored = true;
         })
         .finally(() => (this.loading = false));
+    },
+    getTenDaysAgo() {
+      let today = new Date();
+      today.setDate(today.getDate() - 10);
+      return today.toISOString().slice(0, 10);
+    },
+    getToday() {
+      return new Date().toISOString().slice(0, 10);
     },
   },
 };
