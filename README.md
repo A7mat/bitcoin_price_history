@@ -1,4 +1,5 @@
-# bitcoin_prices
+# bitcoin_price_tracker
+Web application to display the prices of Bitcoin in USD for a configurable date range.
 
 ## Project setup
 ```
