@@ -1,33 +1,41 @@
 <template>
-  <div id="app container">
+  <div id="app" class="container align-items-start">
     <div class="row mt-5">
       <div class="col text-center">
         <h1>Bitcoin Price Tracker</h1>
       </div>
     </div>
-    <div class="row m-5">
-      <div class="col">
-        <input type="date" v-model="fromDate" />
+    <form class="row m-5">
+      <div class="col-5">
+        <label for="fromDate">From:</label>
+        <input
+          type="date"
+          v-model="fromDate"
+          id="fromDate"
+          class="form-control"
+        />
       </div>
-      <div class="col">
-        <!-- To-Do: Disable dates later than today -->
-        <input type="date" v-model="toDate" />
+      <div class="col-5">
+        <label for="to">To:</label>
+        <input type="date" v-model="toDate" id="toDate" class="form-control" />
       </div>
-      <div class="col">
-        <input type="button" value="render" @click="updateData()" />
+      <div class="raw">
+        <input
+          type="button"
+          class="btn btn-outline-secondary mt-2"
+          value="Render"
+          @click="updateData()"
+        />
       </div>
-    </div>
-
+    </form>
     <section v-if="errored">
-      <p>
+      <p class="alert alert-danger" role="alert">
         We're sorry, we're not able to retrieve this information at the moment,
         please refresh the page and try again later
       </p>
     </section>
-
     <section v-else>
       <div v-if="loading">Loading...</div>
-
       <div v-else class="row m-5">
         <price-chart
           :chartData="data"
@@ -75,8 +83,9 @@ export default {
             labels: Object.keys(response.data.bpi),
             datasets: [
               {
-                label: "Bitcoin",
-                backgroundColor: "#f87979",
+                label: "Price in USD",
+                backgroundColor: "rgba(242, 169, 0, 0.3)",
+                borderColor: "#4d4d4e",
                 data: Object.values(response.data.bpi),
               },
             ],
@@ -88,13 +97,13 @@ export default {
         })
         .finally(() => (this.loading = false));
     },
+    getToday() {
+      return new Date().toISOString().slice(0, 10);
+    },
     getTenDaysAgo() {
       let today = new Date();
       today.setDate(today.getDate() - 10);
       return today.toISOString().slice(0, 10);
-    },
-    getToday() {
-      return new Date().toISOString().slice(0, 10);
     },
   },
 };
