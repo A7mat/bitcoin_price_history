@@ -13,7 +13,7 @@
           v-model="fromDate"
           id="fromDate"
           class="form-control"
-          :max="this.getToday()"
+          :max="toDate"
         />
       </div>
       <div class="col-5">
@@ -23,6 +23,7 @@
           v-model="toDate"
           id="toDate"
           class="form-control"
+          :min="fromDate"
           :max="this.getToday()"
         />
       </div>
