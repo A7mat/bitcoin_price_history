@@ -13,11 +13,18 @@
           v-model="fromDate"
           id="fromDate"
           class="form-control"
+          :max="this.getToday()"
         />
       </div>
       <div class="col-5">
         <label for="to">To:</label>
-        <input type="date" v-model="toDate" id="toDate" class="form-control" />
+        <input
+          type="date"
+          v-model="toDate"
+          id="toDate"
+          class="form-control"
+          :max="this.getToday()"
+        />
       </div>
       <div class="raw">
         <input
