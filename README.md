@@ -1,4 +1,5 @@
-# bitcoin_prices
+# bitcoin_price_tracker
+Web application to fetch the prices of Bitcoin in USD from an external API and visualize them in a graph for a configurable date range.
 
 ## Project setup
 ```
