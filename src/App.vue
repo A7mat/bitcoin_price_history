@@ -3,6 +3,9 @@
     <div class="row mt-5">
       <div class="col text-center">
         <h1>Bitcoin Price Tracker</h1>
+        <p class="alert alert-warning" role="alert">
+        Unfortunately the API is not supported anymore as if from 02.07.2022
+    </p>
       </div>
     </div>
     <form class="row m-5">
@@ -66,9 +69,9 @@ export default {
   },
   data() {
     return {
-      fromDate: this.getTenDaysAgo(),
+      fromDate: this.getYearAgo(),
       toDate: this.getToday(),
-      data: null,
+      data: {'key': 'value'},
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false,
@@ -87,6 +90,7 @@ export default {
           `https://api.coindesk.com/v1/bpi/historical/close.json?start=${this.fromDate}&end=${this.toDate}&index=[USD]`
         )
         .then((response) => {
+          console.log(response)
           this.data = {
             labels: Object.keys(response.data.bpi),
             datasets: [
@@ -101,6 +105,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          // console.log()
           this.errored = true;
         })
         .finally(() => (this.loading = false));
@@ -108,9 +113,9 @@ export default {
     getToday() {
       return new Date().toISOString().slice(0, 10);
     },
-    getTenDaysAgo() {
+    getYearAgo() {
       let today = new Date();
-      today.setDate(today.getDate() - 10);
+      today.setDate(today.getDate() - 364);
       return today.toISOString().slice(0, 10);
     },
   },
